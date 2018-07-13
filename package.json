@@ -1,6 +1,7 @@
 {
   "name": "node-todo-api",
   "version": "1.0.0",
+  "author": "Sarit Vakrat",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -9,9 +10,8 @@
     "test-watch": "nodemon --exec 'npm test'"
   },
   "engines": {
-    "node": "6.2.2"
+    "node": "8.11.3"
   },
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
