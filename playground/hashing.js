@@ -1,23 +1,42 @@
-const {SHA256} = require('crypto-js');
+const { SHA256 } = require('crypto-js'),
+    jwt = require('jsonwebtoken'),
+    bcrypt = require('bcryptjs');
 
-const jwt = require('jsonwebtoken');
+// Using bcrypt
 
-let data = {
-    id: 10
-}
+let password = '123abc!';
 
-let token = jwt.sign(data, 'abc123')
+// 10 = number of rounds
+// bcrypt.genSalt(10, (err, salt) =>{
+//     bcrypt.hash(password, salt, (err, hash) =>{
+//         console.log(hash);
+//     });
+// });
 
-// the verify func verified that the token was not changed
-let decoded = jwt.verify(token, 'abc123')
-// let badDecoded = jwt.verify(token + 1, 'abc123')
+let hashedPassword = '$2a$10$hnmuGEiJvWpW2Eemyh8Pt.JA1q6JYeqRLQp5i/038aX73CIF2sBVG';
 
-console.log(token);
-console.log(decoded);
+bcrypt.compare(password, hashedPassword, (err, res) => {
+    console.log(res);
+});
+
+// Using jwt
+
+// let data = {
+//     id: 10
+// }
+
+// let token = jwt.sign(data, 'abc123')
+
+// // the verify func verified that the token was not changed
+// let decoded = jwt.verify(token, 'abc123')
+// // let badDecoded = jwt.verify(token + 1, 'abc123')
+
+// console.log(token);
+// console.log(decoded);
 // shows invalid signature error since it was attempted to change
 // console.log(badDecoded);
 
-
+// using SHA256
 
 // let message = 'I am user number 3',
 //     // hash can be used to save passwords in db's
