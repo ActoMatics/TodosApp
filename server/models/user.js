@@ -56,6 +56,19 @@ userSchema.methods.generateAuthToken = function () {
   });
 };
 
+userSchema.methods.removeToken = function (token) {
+  let user = this;
+
+  user.update({
+    $pull: {
+      tokens: {
+        token: {token}
+      }
+    }
+  });
+};
+
+
 userSchema.statics.findByToken = function (token) {
   let User = this,
     decoded;
@@ -70,8 +83,8 @@ userSchema.statics.findByToken = function (token) {
     '_id': decoded._id,
     'tokens.token': token,
     'tokens.access': 'auth'
-  })
-}
+  });
+};
 
 userSchema.statics.findByCredentials = function (email, password) {
   let User = this;
@@ -110,6 +123,7 @@ userSchema.pre('save', function (next) {
     next();
   }
 });
+
 
 let User = mongoose.model('User', userSchema);
 
